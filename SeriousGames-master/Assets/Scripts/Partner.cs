@@ -20,16 +20,16 @@ public class Partner : MonoBehaviour
 
     {
 
-            agent.destination = player.position;
+        agent.destination = player.position;
 
-        if (agent.velocity != Vector3.zero)
-        {
-            anim.SetBool("walking", true);
-        }
+        if (agent.remainingDistance > agent.stoppingDistance)
+        { 
+        anim.SetBool("walking", true);
+    }
 
         else
             anim.SetBool("walking", false);
 
-            
+            }
     }
-}
+

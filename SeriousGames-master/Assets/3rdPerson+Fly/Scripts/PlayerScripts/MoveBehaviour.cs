@@ -11,6 +11,10 @@ public class MoveBehaviour : GenericBehaviour
 	public float jumpHeight = 1.5f;                 // Default jump height.
 	public float jumpIntertialForce = 10f;          // Default horizontal inertial force when jumping.
 
+    public AudioSource jumpSound;
+    public AudioSource jumpSoundFemale;
+
+    GameObject playerSelect;
 	private float speed, speedSeeker;               // Moving speed.
 	private int jumpBool;                           // Animator variable related to jumping.
 	private int groundedBool;                       // Animator variable related to whether or not the player is on ground.
@@ -29,6 +33,8 @@ public class MoveBehaviour : GenericBehaviour
 		behaviourManager.SubscribeBehaviour(this);
 		behaviourManager.RegisterDefaultBehaviour(this.behaviourCode);
 		speedSeeker = runSpeed;
+        playerSelect = GameObject.Find("PlayerSelect");
+
 	}
 
 	// Update is used to set features regardless the active behaviour.
@@ -60,6 +66,12 @@ public class MoveBehaviour : GenericBehaviour
 			// Set jump related parameters.
 			behaviourManager.LockTempBehaviour(this.behaviourCode);
 			behaviourManager.GetAnim.SetBool(jumpBool, true);
+            if (playerSelect.GetComponent<GenderSelect>().male == true)
+            {
+                jumpSound.Play();
+            }
+            else jumpSoundFemale.Play();
+            
 			// Is a locomotion jump?
 			if (behaviourManager.GetAnim.GetFloat(speedFloat) > 0.1)
 			{
@@ -123,6 +135,7 @@ public class MoveBehaviour : GenericBehaviour
 		if (behaviourManager.IsSprinting())
 		{
 			speed = sprintSpeed;
+            
 		}
 
 		behaviourManager.GetAnim.SetFloat(speedFloat, speed, speedDampTime, Time.deltaTime);

@@ -5,16 +5,31 @@ using UnityEngine.SceneManagement;
 
 public class MoveScene : MonoBehaviour
 {
+    public GameObject fadeout;
     // Start is called before the first frame update
-    void Start()
+    public void Traffic()
     {
-        StartCoroutine(MoveScenes());
+        StartCoroutine(Traffic1());
     }
 
-    // Update is called once per frame
-    IEnumerator MoveScenes()
+    public void Store()
     {
-        yield return new WaitForSeconds(6);
+        StartCoroutine(Store1());
+    }
+
+     IEnumerator Traffic1()
+    {
+        fadeout.SetActive(true);
+        yield return new WaitForSeconds(1);
         SceneManager.LoadScene("IntroCutscene");
     }
+
+     IEnumerator Store1()
+    {
+        fadeout.SetActive(true);
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene("chase");
+    }
+
+
 }

@@ -27,9 +27,12 @@ public class BasicBehaviour : MonoBehaviour
 	private Rigidbody rBody;                              // Reference to the player's rigidbody.
 	private int groundedBool;                             // Animator variable related to whether or not the player is on the ground.
 	private Vector3 colExtents;                           // Collider extents for ground test. 
+    public AudioSource footstep1;
+    public AudioSource footstep2;
 
-	// Get current horizontal and vertical axes.
-	public float GetH { get { return h; } }
+
+    // Get current horizontal and vertical axes.
+    public float GetH { get { return h; } }
 	public float GetV { get { return v; } }
 
 	// Get the player camera script.
@@ -58,6 +61,7 @@ public class BasicBehaviour : MonoBehaviour
 		// Grounded verification variables.
 		groundedBool = Animator.StringToHash("Grounded");
 		colExtents = GetComponent<Collider>().bounds.extents;
+        
 	}
 
 	void Update()
@@ -86,6 +90,17 @@ public class BasicBehaviour : MonoBehaviour
 		}
 		// Set the grounded test on the Animator Controller.
 		anim.SetBool(groundedBool, IsGrounded());
+
+        if (IsMoving() == true && IsGrounded())
+        {
+            if(footstep1.isPlaying == false)
+            {
+                
+                footstep1.Play();
+                footstep2.Play();
+            }
+           
+        }
 	}
 
 	// Call the FixedUpdate functions of the active or overriding behaviours.

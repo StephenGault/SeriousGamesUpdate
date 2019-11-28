@@ -8,6 +8,7 @@ public class CutsceneScript : MonoBehaviour
     public GameObject camera2;
     public GameObject car1;
     public GameObject car2;
+    public GameObject fade;
 
     void Start()
     {
@@ -29,11 +30,14 @@ public class CutsceneScript : MonoBehaviour
         yield return new WaitForSeconds(1);
         car2.SetActive(true);
         StartCoroutine(end());
+        
 
     }
 
     IEnumerator end()
     {
+        yield return new WaitForSeconds(1);
+        fade.gameObject.SetActive(true);
         yield return new WaitForSeconds(3);
         SceneManager.LoadScene("Proto");
 
